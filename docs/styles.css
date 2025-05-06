@@ -523,21 +523,11 @@ p, li {
     transform: translateY(0);
 }
 
-/* 移除之前的字体覆盖设置 */
-h1, h2, h3, .logo, nav ul li a, p, li, .subtitle, .resource-card p {
-    font-family: 'Press Start 2P', cursive;
-}
-
-/* 调整图片覆盖层文字 */
-.image-overlay span {
-    font-size: 0.7rem;
-}
-
 /* 修改参考资料卡片和页脚的字体样式 */
 .resource-card h3, 
 .resource-card p,
 .footer-content p {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif !important;
     letter-spacing: normal;
 }
 
@@ -558,10 +548,22 @@ h1, h2, h3, .logo, nav ul li a, p, li, .subtitle, .resource-card p {
     font-weight: normal;
 }
 
-/* 保持其他元素的像素风格 */
+/* 覆盖之前的全局字体设置 */
+#resources h3,
+#resources p,
+footer p {
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+}
+
+/* 确保其他元素保持像素风格 */
 h1, h2, .logo, nav ul li a, 
 .section:not(#resources) p, 
 .section:not(#resources) li,
 .subtitle {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', cursive !important;
+}
+
+/* 移除可能导致冲突的样式 */
+h1, h2, h3, .logo, nav ul li a, p, li, .subtitle, .resource-card p {
+    /* 移除这个全局设置，改为更具体的选择器 */
 } 
