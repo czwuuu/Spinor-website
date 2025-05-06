@@ -329,4 +329,87 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 执行预加载
     preloadImages();
+});
+
+// 添加Markdown渲染功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有指向Markdown文件的链接
+    const mdLinks = document.querySelectorAll('a[href$=".md"]');
+    
+    mdLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const mdFile = this.getAttribute('href');
+            
+            // 创建一个模态框来显示Markdown内容
+            const modal = document.createElement('div');
+            modal.className = 'md-modal';
+            modal.innerHTML = `
+                <div class="md-content">
+                    <span class="md-close">&times;</span>
+                    <div class="md-body">
+                        <div class="loading">Loading...</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // 添加关闭按钮功能
+            modal.querySelector('.md-close').addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+            
+            // 加载Markdown文件
+            fetch(mdFile)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    // 使用简单的Markdown解析
+                    const html = parseMarkdown(text);
+                    modal.querySelector('.md-body').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error fetching the Markdown file:', error);
+                    modal.querySelector('.md-body').innerHTML = `
+                        <div class="error">
+                            <h3>Error Loading Content</h3>
+                            <p>Could not load the requested file. Please try again later.</p>
+                        </div>
+                    `;
+                });
+        });
+    });
+    
+    // 简单的Markdown解析函数
+    function parseMarkdown(md) {
+        // 处理标题
+        md = md.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+        md = md.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+        md = md.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+        
+        // 处理粗体
+        md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // 处理斜体
+        md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
+        // 处理列表
+        md = md.replace(/^\- (.*$)/gm, '<li>$1</li>');
+        md = md.replace(/<\/li>\n<li>/g, '</li><li>');
+        md = md.replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>');
+        md = md.replace(/<\/ul>\n<ul>/g, '');
+        
+        // 处理数学公式
+        md = md.replace(/\$\$(.*?)\$\$/g, '<div class="math">$1</div>');
+        
+        // 处理段落
+        md = md.replace(/\n\n/g, '</p><p>');
+        md = '<p>' + md + '</p>';
+        
+        return md;
+    }
 }); 
