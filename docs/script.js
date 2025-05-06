@@ -20,9 +20,22 @@ AOS.init({
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth'
+            });
+            
+            // 更新活动链接
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        }
     });
 });
 
@@ -180,25 +193,26 @@ function reveal() {
 window.addEventListener('scroll', reveal);
 reveal(); // 初始检查
 
-// 导航高亮
-const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('nav ul li a');
-
-window.addEventListener('scroll', () => {
-    let current = '';
+// 滚动监听，更新导航活动状态
+window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    let currentSection = '';
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
         
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
+        if (window.pageYOffset >= sectionTop - 200 && 
+            window.pageYOffset < sectionTop + sectionHeight - 200) {
+            currentSection = '#' + section.getAttribute('id');
         }
     });
     
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
+        if (link.getAttribute('href') === currentSection) {
             link.classList.add('active');
         }
     });
@@ -263,4 +277,74 @@ function preloadImages() {
 }
 
 // 页面加载完成后执行预加载
-window.addEventListener('load', preloadImages); 
+window.addEventListener('load', preloadImages);
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    // 滚动动画
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.container');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight * 0.8) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+    
+    // 初始化容器样式
+    const containers = document.querySelectorAll('.container');
+    containers.forEach(container => {
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(50px)';
+        container.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    });
+    
+    // 首次加载时检查
+    animateOnScroll();
+    
+    // 滚动时检查
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // GSAP动画
+    if (typeof gsap !== 'undefined') {
+        gsap.from('.title', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: 'power4.out'
+        });
+        
+        gsap.from('.subtitle', {
+            duration: 1.5,
+            y: 30,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.5
+        });
+        
+        if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.utils.toArray('.section:not(#home)').forEach(section => {
+                gsap.from(section.querySelectorAll('h2, .content-box, .resources-grid'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        end: 'bottom 20%',
+                        toggleActions: 'play none none none'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.3,
+                    ease: 'power3.out'
+                });
+            });
+        }
+    }
+}); 
