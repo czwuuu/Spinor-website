@@ -5,49 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旋量及其在粒子物理中的应用</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navigation">
-        <ul>
-            <li><a href="#home" class="active"><i class="fas fa-home"></i></a></li>
-            <li><a href="#intro"><i class="fas fa-question"></i></a></li>
-            <li><a href="#application"><i class="fas fa-atom"></i></a></li>
-            <li><a href="#resources"><i class="fas fa-book"></i></a></li>
-        </ul>
-    </nav>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <div class="slide" id="home">
-        <div class="parallax" style="background-image: url('https://source.unsplash.com/1600x900/?physics,quantum');">
-            <div class="content">
-                <h1 data-aos="fade-up">旋量及其在粒子物理中的应用</h1>
-                <p data-aos="fade-up" data-aos-delay="200">探索旋量的奥秘，揭示粒子物理的深层结构。</p>
-                <a href="#intro" class="scroll-down" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-chevron-down"></i>
+    <header>
+        <div class="logo">旋量物理</div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#intro">概念</a></li>
+                <li><a href="#application">应用</a></li>
+                <li><a href="#resources">资源</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section" id="home">
+        <div class="particles-container" id="particles-js"></div>
+        <div class="content">
+            <h1 class="glitch" data-text="旋量及其在粒子物理中的应用">旋量及其在粒子物理中的应用</h1>
+            <p class="subtitle">探索量子世界的数学之美</p>
+            <div class="scroll-indicator">
+                <span>向下滚动</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="intro">
+        <div class="container reveal">
+            <h2>什么是<span class="highlight">旋量</span>？</h2>
+            <div class="content-box">
+                <div class="text">
+                    <p>旋量是描述粒子自旋的数学工具，广泛应用于量子力学和粒子物理中。它是一种在旋转变换下具有特殊变换性质的数学对象，比矢量更加基本。</p>
+                    <p>在数学上，旋量可以被视为复数域上的特殊线性群SL(2,C)的表示。这种表示在物理学中尤为重要，因为它与洛伦兹群的双覆盖有关。</p>
+                </div>
+                <div class="image">
+                    <img src="https://source.unsplash.com/random/600x400/?quantum,physics" alt="旋量概念图">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="application">
+        <div class="container reveal">
+            <h2>旋量在<span class="highlight">粒子物理</span>中的应用</h2>
+            <div class="content-box reverse">
+                <div class="text">
+                    <p>旋量在描述费米子、狄拉克方程和标准模型中扮演着关键角色。通过旋量，我们可以：</p>
+                    <ul>
+                        <li>描述电子等自旋为1/2的粒子</li>
+                        <li>解释狄拉克方程中的自旋-轨道耦合</li>
+                        <li>理解弱相互作用中的宇称破坏</li>
+                        <li>构建标准模型中的基本粒子分类</li>
+                    </ul>
+                </div>
+                <div class="image">
+                    <img src="https://source.unsplash.com/random/600x400/?atom,particle" alt="粒子物理应用">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="resources">
+        <div class="container reveal">
+            <h2>学习<span class="highlight">资源</span></h2>
+            <div class="resources-grid">
+                <a href="https://en.wikipedia.org/wiki/Spinor" target="_blank" class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h3>维基百科：旋量</h3>
+                    <p>全面了解旋量的数学定义和物理意义</p>
+                </a>
+                <a href="#" target="_blank" class="resource-card">
+                    <i class="fas fa-video"></i>
+                    <h3>视频讲解</h3>
+                    <p>直观理解旋量的几何意义和物理应用</p>
+                </a>
+                <a href="#" target="_blank" class="resource-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>学术论文</h3>
+                    <p>深入探讨旋量在现代物理中的前沿应用</p>
+                </a>
+                <a href="#" target="_blank" class="resource-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>在线课程</h3>
+                    <p>系统学习旋量理论及其在物理学中的应用</p>
                 </a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="slide" id="intro">
-        <h2>什么是旋量？</h2>
-        <p>旋量是描述粒子自旋的数学工具，广泛应用于量子力学和粒子物理中。</p>
-    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2023 北京大学物理学院 - 数理方法课程项目</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+        </div>
+    </footer>
 
-    <div class="slide" id="application">
-        <h2>旋量在粒子物理中的应用</h2>
-        <p>旋量在描述费米子、狄拉克方程和标准模型中扮演着关键角色。</p>
-    </div>
-
-    <div class="slide" id="resources">
-        <h2>参考资料</h2>
-        <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Spinor" target="_blank">维基百科：旋量</a></li>
-            <li><a href="https://www.youtube.com/watch?v=example" target="_blank">旋量视频讲解</a></li>
-        </ul>
-    </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
