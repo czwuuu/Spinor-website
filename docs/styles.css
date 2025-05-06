@@ -15,11 +15,11 @@
 }
 
 body {
-    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Press Start 2P', cursive;
     background-color: var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
 /* 自定义光标 */
@@ -152,7 +152,7 @@ nav ul li a:hover::after, nav ul li a.active::after {
 }
 
 .title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-weight: 600;
     text-transform: uppercase;
     position: relative;
@@ -161,6 +161,7 @@ nav ul li a:hover::after, nav ul li a.active::after {
     margin-bottom: 1.5rem;
     text-shadow: 4px 4px 0 var(--accent-color);
     animation: pulse 2s infinite;
+    line-height: 1.3;
 }
 
 @keyframes pulse {
@@ -170,10 +171,9 @@ nav ul li a:hover::after, nav ul li a.active::after {
 }
 
 .subtitle {
-    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 300;
+    font-size: 0.9rem;
     letter-spacing: 1px;
+    line-height: 1.5;
     color: var(--secondary-color);
     margin-bottom: 40px;
 }
@@ -199,11 +199,12 @@ nav ul li a:hover::after, nav ul li a.active::after {
 
 /* 内容部分 */
 h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
     position: relative;
     display: inline-block;
     text-shadow: 3px 3px 0 var(--dark-accent);
+    line-height: 1.4;
 }
 
 .highlight {
@@ -227,8 +228,8 @@ h2 {
 }
 
 .text p {
-    margin-bottom: 20px;
-    font-size: 1rem;
+    margin-bottom: 15px;
+    font-size: 0.7rem;
     line-height: 1.8;
     letter-spacing: 0.5px;
 }
@@ -241,7 +242,7 @@ h2 {
 .text ul li {
     margin-bottom: 15px;
     position: relative;
-    font-size: 1rem;
+    font-size: 0.7rem;
     padding-left: 20px;
 }
 
@@ -302,13 +303,14 @@ h2 {
 }
 
 .resource-card h3 {
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .resource-card p {
-    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
+    line-height: 1.6;
     color: #aaa;
 }
 
@@ -330,7 +332,8 @@ footer {
 }
 
 .footer-content p {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
+    line-height: 1.5;
 }
 
 .social-links a {
@@ -390,11 +393,19 @@ footer {
     }
     
     .title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.7rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    p, li {
+        font-size: 0.6rem;
     }
 }
 
@@ -408,19 +419,23 @@ footer {
     }
     
     .title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
     
     .subtitle {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
     }
     
     h2 {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     
-    .text p, .text ul li {
-        font-size: 0.7rem;
+    p, li {
+        font-size: 0.5rem;
+    }
+    
+    .resource-card p {
+        font-size: 0.5rem;
     }
 }
 
@@ -441,27 +456,79 @@ h1, h2, h3, .logo, nav ul li a {
 
 /* 调整正文字体大小和行高，使其更易读 */
 p, li {
-    font-size: 1rem;
+    font-size: 0.7rem;
     line-height: 1.8;
     letter-spacing: 0.5px;
+    margin-bottom: 15px;
 }
 
 /* 调整标题字体大小，使其与新字体更协调 */
 .title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     letter-spacing: 2px;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
 }
 
 .subtitle {
-    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 300;
+    font-size: 0.9rem;
     letter-spacing: 1px;
+    line-height: 1.5;
 }
 
 /* 调整资源卡片文字样式 */
 .resource-card p {
-    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
+    line-height: 1.6;
+}
+
+/* 添加图片链接样式 */
+.image-link {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.image-link:hover {
+    transform: scale(1.02);
+}
+
+.image-link img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+
+.image-link:hover img {
+    filter: brightness(0.8);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 204, 255, 0.8);
+    padding: 15px;
+    color: white;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.image-link:hover .image-overlay {
+    transform: translateY(0);
+}
+
+/* 移除之前的字体覆盖设置 */
+h1, h2, h3, .logo, nav ul li a, p, li, .subtitle, .resource-card p {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* 调整图片覆盖层文字 */
+.image-overlay span {
+    font-size: 0.7rem;
 } 
