@@ -1,0 +1,82 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+.slide {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+}
+
+#home {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+#intro {
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+}
+
+#application {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+#resources {
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+} 
