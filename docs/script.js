@@ -49,7 +49,7 @@ particlesJS('particles-js', {
         shape: {
             type: 'image',
             image: {
-                src: 'pacman.png', // 吃豆人图片
+                src: 'assets/pacman.jpg', // 更新路径
                 width: 32,
                 height: 32
             }
@@ -123,8 +123,8 @@ particlesJS('particles-js', {
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
-cursor.style.backgroundImage = "url('pacman.png')";
-cursorFollower.style.backgroundImage = "url('ghost.png')";
+cursor.style.backgroundImage = "url('assets/pacman.jpg')"; // 更新路径
+cursorFollower.style.backgroundImage = "url('assets/ghost.png')"; // 更新路径
 
 document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px';
