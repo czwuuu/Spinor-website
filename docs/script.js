@@ -254,97 +254,79 @@ gsap.utils.toArray('.section:not(#home)').forEach(section => {
     });
 });
 
-// 添加图片预加载功能
-function preloadImages() {
-    const pacmanImg = new Image();
-    pacmanImg.src = 'assets/pacman.jpg';
-    
-    const ghostImg = new Image();
-    ghostImg.src = 'assets/ghost.png';
-    
-    pacmanImg.onload = function() {
-        console.log('吃豆人图片加载成功');
-        // 加载成功后可以切换粒子形状为图片
-        if (window.pJSDom && window.pJSDom[0]) {
-            window.pJSDom[0].pJS.particles.shape.type = 'image';
-            window.pJSDom[0].pJS.fn.particlesRefresh();
-        }
-    };
-    
-    ghostImg.onload = function() {
-        console.log('幽灵图片加载成功');
-    };
-}
-
-// 页面加载完成后执行预加载
-window.addEventListener('load', preloadImages);
-
-// 页面加载完成后执行
+// 修复所有图片引用
 document.addEventListener('DOMContentLoaded', function() {
-    // 滚动动画
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.container');
+    // 检查并修复所有图片路径
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+        // 记录当前图片路径
+        console.log('图片路径:', img.src);
         
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight * 0.8) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    };
-    
-    // 初始化容器样式
-    const containers = document.querySelectorAll('.container');
-    containers.forEach(container => {
-        container.style.opacity = '0';
-        container.style.transform = 'translateY(50px)';
-        container.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        // 如果是相对路径且包含assets，确保路径正确
+        if (img.src.includes('assets') && !img.src.includes('http')) {
+            const currentSrc = img.src;
+            // 尝试不同的路径组合
+            img.onerror = function() {
+                console.error('图片加载失败:', currentSrc);
+                // 尝试其他可能的路径
+                if (currentSrc.includes('./assets/')) {
+                    img.src = currentSrc.replace('./assets/', '/assets/');
+                    console.log('尝试新路径:', img.src);
+                } else if (currentSrc.includes('/assets/')) {
+                    img.src = currentSrc.replace('/assets/', './assets/');
+                    console.log('尝试新路径:', img.src);
+                }
+            };
+        }
     });
     
-    // 首次加载时检查
-    animateOnScroll();
-    
-    // 滚动时检查
-    window.addEventListener('scroll', animateOnScroll);
-    
-    // GSAP动画
-    if (typeof gsap !== 'undefined') {
-        gsap.from('.title', {
-            duration: 1.5,
-            y: 50,
-            opacity: 0,
-            ease: 'power4.out'
-        });
+    // 预加载图片
+    function preloadImages() {
+        // 尝试多种可能的路径
+        const possiblePaths = [
+            './assets/pacman.jpg',
+            '/assets/pacman.jpg',
+            '../assets/pacman.jpg',
+            'assets/pacman.jpg',
+            './docs/assets/pacman.jpg',
+            '/docs/assets/pacman.jpg'
+        ];
         
-        gsap.from('.subtitle', {
-            duration: 1.5,
-            y: 30,
-            opacity: 0,
-            ease: 'power4.out',
-            delay: 0.5
-        });
+        const ghostPaths = [
+            './assets/ghost.png',
+            '/assets/ghost.png',
+            '../assets/ghost.png',
+            'assets/ghost.png',
+            './docs/assets/ghost.png',
+            '/docs/assets/ghost.png'
+        ];
         
-        if (typeof ScrollTrigger !== 'undefined') {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            gsap.utils.toArray('.section:not(#home)').forEach(section => {
-                gsap.from(section.querySelectorAll('h2, .content-box, .resources-grid'), {
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none none'
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    stagger: 0.3,
-                    ease: 'power3.out'
+        // 尝试加载所有可能的路径
+        possiblePaths.forEach(path => {
+            const img = new Image();
+            img.src = path;
+            img.onload = function() {
+                console.log('成功加载图片:', path);
+                // 找到正确路径后更新所有相关图片
+                document.querySelectorAll('img[src*="pacman"]').forEach(el => {
+                    el.src = path;
                 });
-            });
-        }
+            };
+        });
+        
+        ghostPaths.forEach(path => {
+            const img = new Image();
+            img.src = path;
+            img.onload = function() {
+                console.log('成功加载图片:', path);
+                // 找到正确路径后更新所有相关图片
+                document.querySelectorAll('img[src*="ghost"]').forEach(el => {
+                    el.src = path;
+                });
+            };
+        });
     }
+    
+    // 执行预加载
+    preloadImages();
 }); 

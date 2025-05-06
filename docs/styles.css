@@ -303,15 +303,15 @@ h2 {
 }
 
 .resource-card h3 {
-    font-size: 0.8rem;
-    margin-bottom: 15px;
-    line-height: 1.4;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .resource-card p {
-    font-size: 0.6rem;
-    line-height: 1.6;
-    color: #aaa;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #cccccc;
 }
 
 /* 页脚 */
@@ -332,8 +332,8 @@ footer {
 }
 
 .footer-content p {
-    font-size: 0.6rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    font-weight: normal;
 }
 
 .social-links a {
@@ -531,4 +531,37 @@ h1, h2, h3, .logo, nav ul li a, p, li, .subtitle, .resource-card p {
 /* 调整图片覆盖层文字 */
 .image-overlay span {
     font-size: 0.7rem;
+}
+
+/* 修改参考资料卡片和页脚的字体样式 */
+.resource-card h3, 
+.resource-card p,
+.footer-content p {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    letter-spacing: normal;
+}
+
+.resource-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.resource-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #cccccc;
+}
+
+.footer-content p {
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+/* 保持其他元素的像素风格 */
+h1, h2, .logo, nav ul li a, 
+.section:not(#resources) p, 
+.section:not(#resources) li,
+.subtitle {
+    font-family: 'Press Start 2P', cursive;
 } 
