@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -152,13 +152,13 @@ nav ul li a:hover::after, nav ul li a.active::after {
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 600;
     text-transform: uppercase;
     position: relative;
     color: var(--text-color);
-    letter-spacing: 3px;
-    margin-bottom: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
     text-shadow: 4px 4px 0 var(--accent-color);
     animation: pulse 2s infinite;
 }
@@ -170,7 +170,10 @@ nav ul li a:hover::after, nav ul li a.active::after {
 }
 
 .subtitle {
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
     font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
     color: var(--secondary-color);
     margin-bottom: 40px;
 }
@@ -225,8 +228,9 @@ h2 {
 
 .text p {
     margin-bottom: 20px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1.8;
+    letter-spacing: 0.5px;
 }
 
 .text ul {
@@ -237,7 +241,7 @@ h2 {
 .text ul li {
     margin-bottom: 15px;
     position: relative;
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding-left: 20px;
 }
 
@@ -303,7 +307,8 @@ h2 {
 }
 
 .resource-card p {
-    font-size: 0.7rem;
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
     color: #aaa;
 }
 
@@ -427,4 +432,36 @@ footer {
 .pacman-container img {
     display: block;
     margin: 0 auto;
+}
+
+/* 保留像素风格的标题字体，但正文使用微软雅黑 */
+h1, h2, h3, .logo, nav ul li a {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* 调整正文字体大小和行高，使其更易读 */
+p, li {
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+}
+
+/* 调整标题字体大小，使其与新字体更协调 */
+.title {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* 调整资源卡片文字样式 */
+.resource-card p {
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
 } 
