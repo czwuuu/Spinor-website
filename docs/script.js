@@ -37,7 +37,7 @@ window.addEventListener('scroll', function() {
 particlesJS('particles-js', {
     particles: {
         number: {
-            value: 50,
+            value: 30,
             density: {
                 enable: true,
                 value_area: 800
@@ -47,9 +47,9 @@ particlesJS('particles-js', {
             value: '#ffcc00' // 吃豆人经典黄色
         },
         shape: {
-            type: 'image',
+            type: 'circle',
             image: {
-                src: 'assets/pacman.jpg', // 更新路径
+                src: 'assets/pacman.jpg',
                 width: 32,
                 height: 32
             }
@@ -123,8 +123,8 @@ particlesJS('particles-js', {
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
-cursor.style.backgroundImage = "url('assets/pacman.jpg')"; // 更新路径
-cursorFollower.style.backgroundImage = "url('assets/ghost.png')"; // 更新路径
+cursor.style.backgroundImage = "url('assets/pacman.jpg')";
+cursorFollower.style.backgroundImage = "url('assets/ghost.png')";
 
 document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px';
@@ -238,4 +238,29 @@ gsap.utils.toArray('.section:not(#home)').forEach(section => {
         stagger: 0.3,
         ease: 'power3.out'
     });
-}); 
+});
+
+// 添加图片预加载功能
+function preloadImages() {
+    const pacmanImg = new Image();
+    pacmanImg.src = 'assets/pacman.jpg';
+    
+    const ghostImg = new Image();
+    ghostImg.src = 'assets/ghost.png';
+    
+    pacmanImg.onload = function() {
+        console.log('吃豆人图片加载成功');
+        // 加载成功后可以切换粒子形状为图片
+        if (window.pJSDom && window.pJSDom[0]) {
+            window.pJSDom[0].pJS.particles.shape.type = 'image';
+            window.pJSDom[0].pJS.fn.particlesRefresh();
+        }
+    };
+    
+    ghostImg.onload = function() {
+        console.log('幽灵图片加载成功');
+    };
+}
+
+// 页面加载完成后执行预加载
+window.addEventListener('load', preloadImages); 
