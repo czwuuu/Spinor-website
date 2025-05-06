@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旋量及其在粒子物理中的应用</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="navigation">
+        <ul>
+            <li><a href="#home" class="active"><i class="fas fa-home"></i></a></li>
+            <li><a href="#intro"><i class="fas fa-question"></i></a></li>
+            <li><a href="#application"><i class="fas fa-atom"></i></a></li>
+            <li><a href="#resources"><i class="fas fa-book"></i></a></li>
+        </ul>
+    </nav>
+
     <div class="slide" id="home">
-        <h1>旋量及其在粒子物理中的应用</h1>
-        <p>探索旋量的奥秘，揭示粒子物理的深层结构。</p>
-        <a href="#intro" class="scroll-down">向下滚动</a>
+        <div class="parallax" style="background-image: url('https://source.unsplash.com/1600x900/?physics,quantum');">
+            <div class="content">
+                <h1 data-aos="fade-up">旋量及其在粒子物理中的应用</h1>
+                <p data-aos="fade-up" data-aos-delay="200">探索旋量的奥秘，揭示粒子物理的深层结构。</p>
+                <a href="#intro" class="scroll-down" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="slide" id="intro">
@@ -31,6 +47,7 @@
         </ul>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
