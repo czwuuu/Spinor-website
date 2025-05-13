@@ -331,17 +331,83 @@ document.addEventListener('DOMContentLoaded', function() {
     preloadImages();
 });
 
-// 添加Markdown渲染功能
-document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有指向Markdown文件的链接
-    const mdLinks = document.querySelectorAll('a[href$=".md"]');
+// 创建星星背景
+function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const starCount = 200;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // 随机位置
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        // 随机大小
+        const size = Math.random() * 3;
+        
+        // 随机动画持续时间和延迟
+        const duration = 3 + Math.random() * 7 + 's';
+        const delay = Math.random() * 5 + 's';
+        
+        // 随机亮度
+        const opacity = 0.5 + Math.random() * 0.5;
+        
+        // 随机颜色（白色或淡黄色）
+        const colorClass = Math.random() > 0.7 ? 'star-yellow' : '';
+        if (colorClass) {
+            star.classList.add(colorClass);
+        }
+        
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--delay', delay);
+        star.style.setProperty('--opacity', opacity);
+        
+        if (colorClass) {
+            star.style.backgroundColor = 'var(--star-color-2)';
+        }
+        
+        starsContainer.appendChild(star);
+    }
+}
+
+// 添加电子旋转的额外轨道
+function enhanceElectron() {
+    const electron = document.querySelector('.electron');
+    
+    // 添加两个额外的轨道，角度不同
+    for (let i = 1; i <= 2; i++) {
+        const orbit = document.createElement('div');
+        orbit.className = 'electron-orbit';
+        orbit.style.transform = `rotate(${60 * i}deg)`;
+        orbit.style.width = `${100 + i * 20}%`;
+        orbit.style.height = `${100 + i * 20}%`;
+        orbit.style.animationDuration = `${8 + i * 2}s`;
+        orbit.style.animationDirection = i % 2 ? 'normal' : 'reverse';
+        
+        const dot = document.createElement('div');
+        dot.className = 'electron-dot';
+        
+        orbit.appendChild(dot);
+        electron.appendChild(orbit);
+    }
+}
+
+// Markdown 渲染功能
+function setupMarkdownLinks() {
+    const mdLinks = document.querySelectorAll('.md-link');
     
     mdLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const mdFile = this.getAttribute('href');
             
-            // 创建一个模态框来显示Markdown内容
+            // 创建模态框
             const modal = document.createElement('div');
             modal.className = 'md-modal';
             modal.innerHTML = `
@@ -359,7 +425,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.removeChild(modal);
             });
             
-            // 加载Markdown文件
+            // 点击模态框背景也可以关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // 加载 Markdown 文件
             fetch(mdFile)
                 .then(response => {
                     if (!response.ok) {
@@ -368,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return response.text();
                 })
                 .then(text => {
-                    // 使用简单的Markdown解析
+                    // 使用 Markdown 解析
                     const html = parseMarkdown(text);
                     modal.querySelector('.md-body').innerHTML = html;
                 })
@@ -383,33 +456,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     });
+}
+
+// 简单的 Markdown 解析函数
+function parseMarkdown(md) {
+    // 处理标题
+    md = md.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+    md = md.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+    md = md.replace(/^### (.*$)/gm, '<h3>$1</h3>');
     
-    // 简单的Markdown解析函数
-    function parseMarkdown(md) {
-        // 处理标题
-        md = md.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-        md = md.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-        md = md.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-        
-        // 处理粗体
-        md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        
-        // 处理斜体
-        md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
-        
-        // 处理列表
-        md = md.replace(/^\- (.*$)/gm, '<li>$1</li>');
-        md = md.replace(/<\/li>\n<li>/g, '</li><li>');
-        md = md.replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>');
-        md = md.replace(/<\/ul>\n<ul>/g, '');
-        
-        // 处理数学公式
-        md = md.replace(/\$\$(.*?)\$\$/g, '<div class="math">$1</div>');
-        
-        // 处理段落
-        md = md.replace(/\n\n/g, '</p><p>');
-        md = '<p>' + md + '</p>';
-        
-        return md;
-    }
+    // 处理粗体
+    md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // 处理斜体
+    md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // 处理列表
+    md = md.replace(/^\- (.*$)/gm, '<li>$1</li>');
+    md = md.replace(/<\/li>\n<li>/g, '</li><li>');
+    md = md.replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>');
+    md = md.replace(/<\/ul>\n<ul>/g, '');
+    
+    // 处理数学公式
+    md = md.replace(/\$\$(.*?)\$\$/g, '<div class="math">$1</div>');
+    
+    // 处理段落
+    md = md.replace(/\n\n/g, '</p><p>');
+    md = '<p>' + md + '</p>';
+    
+    return md;
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    createStars();
+    enhanceElectron();
+    setupMarkdownLinks();
 }); 

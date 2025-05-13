@@ -1,125 +1,52 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spinor and its applications in particle physics</title>
+    <title>Spinor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="logo">Spinor</div>
-        <nav>
-            <ul>
-                <li><a href="#home" class="active">Homepage</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="section" id="home">
-        <div class="pixel-bg"></div>
-        <div class="content">
-            <h1 class="title">Spinor</h1>
-            <p class="subtitle">and its applications in particle physics</p>
-            <div class="scroll-indicator">
-                <span>Scroll down</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="intro">
-        <div class="container">
-            <h2>What is <span class="highlight">Spinor</span>?</h2>
-            <div class="content-box">
-                <div class="text">
-                    <p>Spinor is a mathematical tool for describing particle spin, widely used in quantum mechanics and particle physics. It is a mathematical object that has special transformation properties under rotation, which is more fundamental than vectors.</p>
-                    <p>In mathematics, spinor can be regarded as a representation of the special linear group SL(2,C) over the complex field. This representation is particularly important in physics because it is related to the double cover of the Lorentz group.</p>
-                </div>
-                <div class="image">
-                    <a href="spinor_concept.md" class="image-link">
-                        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="100" cy="100" r="80" fill="#FFFF00" />
-                            <polygon points="100,100 180,60 180,140" fill="#121212" />
-                        </svg>
-                        <div class="image-overlay">
-                            <span>Click to view detailed introduction</span>
-                        </div>
-                    </a>
+    <div id="stars"></div>
+    
+    <main class="container">
+        <div class="electron-container">
+            <div class="electron">
+                <div class="electron-orbit">
+                    <div class="electron-dot"></div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="section" id="application">
-        <div class="container">
-            <h2>Applications of <span class="highlight">Spinor</span> in particle physics</h2>
-            <div class="content-box reverse">
-                <div class="text">
-                    <p>Spinor plays a crucial role in describing fermions, Dirac equations, and the standard model. Through spinor, we can:</p>
-                    <ul>
-                        <li>Describe fermions with spin 1/2</li>
-                        <li>Explain spin-orbit coupling in Dirac equations</li>
-                        <li>Understand parity violation in weak interactions</li>
-                        <li>Build the classification of fundamental particles in the standard model</li>
-                    </ul>
-                </div>
-                <div class="image">
-                    <a href="spinor_applications.md" class="image-link">
-                        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50,50 L50,150 Q75,180 100,150 Q125,180 150,150 L150,50 Q100,20 50,50 Z" fill="#00CCFF" />
-                            <circle cx="80" cy="80" r="15" fill="white" />
-                            <circle cx="80" cy="80" r="7" fill="black" />
-                            <circle cx="120" cy="80" r="15" fill="white" />
-                            <circle cx="120" cy="80" r="7" fill="black" />
-                        </svg>
-                        <div class="image-overlay">
-                            <span>Click to view detailed applications</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        
+        <div class="links-container">
+            <a href="https://en.wikipedia.org/wiki/Spinor" target="_blank" class="link-box">
+                <i class="fas fa-book"></i>
+                <h3>Wikipedia</h3>
+                <p>Learn about spinors from Wikipedia</p>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=j5soqexrwqY&list=PLJHszsWbB6hoOo_wMb0b6T44KM_ABZtBs" target="_blank" class="link-box">
+                <i class="fas fa-video"></i>
+                <h3>YouTube</h3>
+                <p>Watch video explanations</p>
+            </a>
+            
+            <a href="spinor_resources.md" class="link-box md-link">
+                <i class="fas fa-file-alt"></i>
+                <h3>Useful Resources</h3>
+                <p>Collection of helpful materials</p>
+            </a>
+            
+            <a href="spinor_concept.md" class="link-box md-link">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Our Notes</h3>
+                <p>Custom explanations and notes</p>
+            </a>
         </div>
-    </section>
+    </main>
 
-    <section class="section" id="resources">
-        <div class="container">
-            <h2>References</h2>
-            <div class="resources-grid">
-                <a href="https://en.wikipedia.org/wiki/Spinor" target="_blank" class="resource-card">
-                    <i class="fas fa-book"></i>
-                    <h3 style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 1rem; font-weight: 600; letter-spacing: normal;">Wikipedia: Spinor</h3>
-                    <p style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 0.85rem; line-height: 1.5; letter-spacing: normal;">Comprehensive understanding of the mathematical definition and physical significance of spinor</p>
-                </a>
-                <a href="https://www.youtube.com/watch?v=j5soqexrwqY&list=PLJHszsWbB6hoOo_wMb0b6T44KM_ABZtBs" target="_blank" class="resource-card">
-                    <i class="fas fa-video"></i>
-                    <h3 style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 1rem; font-weight: 600; letter-spacing: normal;">Youtube video explanation</h3>
-                    <p style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 0.85rem; line-height: 1.5; letter-spacing: normal;">An introduction to spinor for beginners</p>
-                </a>
-                <a href="#" target="_blank" class="resource-card">
-                    <i class="fas fa-file-pdf"></i>
-                    <h3 style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 1rem; font-weight: 600; letter-spacing: normal;">Related papers</h3>
-                    <p style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 0.85rem; line-height: 1.5; letter-spacing: normal;">An incomplete collection of papers</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <p style="font-family: 'Segoe UI', Arial, sans-serif !important; font-size: 0.85rem; font-weight: normal; letter-spacing: normal;">© 2025 Peking University - School of Physics - Mathematical Methods Course Project</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-weixin"></i></a>
-                <a href="#"><i class="fab fa-weibo"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
