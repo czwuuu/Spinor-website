@@ -160,7 +160,7 @@ nav ul li a:hover::after, nav ul li a.active::after {
     gap: 60px;
 }
 
-/* 电子动画 */
+/* 电子容器 */
 .electron-container {
     width: 300px;
     height: 300px;
@@ -168,6 +168,7 @@ nav ul li a:hover::after, nav ul li a.active::after {
     justify-content: center;
     align-items: center;
     position: relative;
+    /* 移除边框，让电子成为焦点 */
 }
 
 .electron {
