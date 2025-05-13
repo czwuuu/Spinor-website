@@ -26,14 +26,14 @@ body {
     position: relative;
 }
 
-/* 高冲击力背景图 */
+/* 高冲击力背景图 - 修改为使用本地图片 */
 .bg-image {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://images.unsplash.com/photo-1534841090574-cba2d662b62e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80');
+    background-image: url('assets/bg-space.jpg'); /* 使用本地图片 */
     background-size: cover;
     background-position: center;
     filter: saturate(120%) contrast(120%);
@@ -41,13 +41,14 @@ body {
     z-index: -2;
 }
 
+/* 增强叠加层对比度 */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,20,0.7) 0%, rgba(0,0,0,0.9) 100%);
+    background: linear-gradient(135deg, rgba(0,0,20,0.5) 0%, rgba(0,0,0,0.8) 100%); /* 稍微减轻遮罩效果 */
     z-index: -1;
 }
 
