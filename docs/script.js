@@ -331,10 +331,10 @@ document.addEventListener('DOMContentLoaded', function() {
     preloadImages();
 });
 
-// 创建星星背景
+// 创建更少的星星，作为背景点缀
 function createStars() {
     const starsContainer = document.getElementById('stars');
-    const starCount = 200;
+    const starCount = 100; // 减少星星数量
     
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
@@ -345,7 +345,7 @@ function createStars() {
         const y = Math.random() * 100;
         
         // 随机大小
-        const size = Math.random() * 3;
+        const size = Math.random() * 2 + 1;
         
         // 随机动画持续时间和延迟
         const duration = 3 + Math.random() * 7 + 's';
@@ -353,12 +353,6 @@ function createStars() {
         
         // 随机亮度
         const opacity = 0.5 + Math.random() * 0.5;
-        
-        // 随机颜色（白色或淡黄色）
-        const colorClass = Math.random() > 0.7 ? 'star-yellow' : '';
-        if (colorClass) {
-            star.classList.add(colorClass);
-        }
         
         star.style.left = `${x}%`;
         star.style.top = `${y}%`;
@@ -368,37 +362,36 @@ function createStars() {
         star.style.setProperty('--delay', delay);
         star.style.setProperty('--opacity', opacity);
         
-        if (colorClass) {
-            star.style.backgroundColor = 'var(--star-color-2)';
-        }
-        
         starsContainer.appendChild(star);
     }
 }
 
-// 增强电子动画效果
-function enhanceElectron() {
-    const electronSphere = document.querySelector('.electron-sphere');
-    
-    // 添加鼠标交互效果
+// 添加视差效果
+function addParallaxEffect() {
     document.addEventListener('mousemove', (e) => {
-        const x = (window.innerWidth / 2 - e.clientX) / 25;
-        const y = (window.innerHeight / 2 - e.clientY) / 25;
+        const bgImage = document.querySelector('.bg-image');
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
         
-        electronSphere.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        bgImage.style.transform = `translate(-${x * 20}px, -${y * 20}px) scale(1.1)`;
     });
+}
+
+// 添加链接卡片动画
+function animateCards() {
+    const cards = document.querySelectorAll('.link-box');
     
-    // 添加点击效果
-    electronSphere.addEventListener('click', () => {
-        electronSphere.style.animation = 'none';
-        electronSphere.style.transform = 'scale(1.2)';
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const randomColor = `hsl(${Math.random() * 30 + 190}, 100%, 50%)`;
+            card.style.borderColor = randomColor;
+            card.querySelector('i').style.color = randomColor;
+        });
         
-        setTimeout(() => {
-            electronSphere.style.transform = 'scale(1)';
-            setTimeout(() => {
-                electronSphere.style.animation = 'rotate3d 10s infinite linear';
-            }, 300);
-        }, 300);
+        card.addEventListener('mouseleave', () => {
+            card.style.borderColor = '';
+            card.querySelector('i').style.color = '';
+        });
     });
 }
 
@@ -406,5 +399,6 @@ function enhanceElectron() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM 已加载');
     createStars();
-    enhanceElectron();
+    addParallaxEffect();
+    animateCards();
 }); 
