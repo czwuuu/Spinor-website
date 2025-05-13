@@ -376,132 +376,35 @@ function createStars() {
     }
 }
 
-// 创建3D电子动画
-function createElectron() {
-    try {
-        // 检查THREE是否已加载
-        if (typeof THREE === 'undefined') {
-            console.error('THREE.js 未加载');
-            return;
-        }
+// 增强电子动画效果
+function enhanceElectron() {
+    const electronSphere = document.querySelector('.electron-sphere');
+    
+    // 添加鼠标交互效果
+    document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.clientX) / 25;
+        const y = (window.innerHeight / 2 - e.clientY) / 25;
         
-        // 获取容器
-        const container = document.getElementById('electron-container');
-        if (!container) {
-            console.error('找不到电子容器元素');
-            return;
-        }
+        electronSphere.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+    
+    // 添加点击效果
+    electronSphere.addEventListener('click', () => {
+        electronSphere.style.animation = 'none';
+        electronSphere.style.transform = 'scale(1.2)';
         
-        // 创建场景
-        const scene = new THREE.Scene();
-        
-        // 创建相机
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.z = 5;
-        
-        // 创建渲染器
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setClearColor(0x000000, 0); // 透明背景
-        container.appendChild(renderer.domElement);
-        
-        // 添加光源
-        const ambientLight = new THREE.AmbientLight(0x404040, 1);
-        scene.add(ambientLight);
-        
-        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight1.position.set(5, 3, 5);
-        scene.add(directionalLight1);
-        
-        const directionalLight2 = new THREE.DirectionalLight(0x00ccff, 0.5);
-        directionalLight2.position.set(-5, -3, -5);
-        scene.add(directionalLight2);
-        
-        // 创建电子球体 - 增大尺寸
-        const geometry = new THREE.SphereGeometry(1.5, 64, 64);
-        
-        // 创建材质 - 使用更高级的材质效果
-        const material = new THREE.MeshPhongMaterial({
-            color: 0x00ccff,
-            emissive: 0x003366,
-            specular: 0xffffff,
-            shininess: 100,
-            transparent: true,
-            opacity: 0.9
-        });
-        
-        const electron = new THREE.Mesh(geometry, material);
-        scene.add(electron);
-        
-        // 创建自旋箭头 - 调整大小和位置
-        const arrowLength = 2.5;
-        const arrowDirection = new THREE.Vector3(0, 1, 0);
-        arrowDirection.normalize();
-        
-        const arrowHelper = new THREE.ArrowHelper(
-            arrowDirection,
-            new THREE.Vector3(0, 0, 0),
-            arrowLength,
-            0xff6b6b,
-            0.6,
-            0.4
-        );
-        scene.add(arrowHelper);
-        
-        // 添加窗口大小调整事件
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        });
-        
-        // 动画循环
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // 旋转电子 - 使旋转更加平滑
-            electron.rotation.y += 0.01;
-            electron.rotation.x += 0.005;
-            electron.rotation.z += 0.002;
-            
-            // 旋转箭头 - 保持与电子同步
-            arrowHelper.rotation.y = electron.rotation.y;
-            arrowHelper.rotation.x = electron.rotation.x;
-            arrowHelper.rotation.z = electron.rotation.z;
-            
-            // 轻微移动相机以增加动态效果
-            camera.position.x = Math.sin(Date.now() * 0.0005) * 0.8;
-            camera.position.y = Math.cos(Date.now() * 0.0005) * 0.8;
-            camera.lookAt(scene.position);
-            
-            renderer.render(scene, camera);
-        }
-        
-        animate();
-        console.log('电子动画已初始化');
-    } catch (error) {
-        console.error('创建电子动画时出错:', error);
-    }
+        setTimeout(() => {
+            electronSphere.style.transform = 'scale(1)';
+            setTimeout(() => {
+                electronSphere.style.animation = 'rotate3d 10s infinite linear';
+            }, 300);
+        }, 300);
+    });
 }
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM 已加载');
     createStars();
-    
-    // 确保 THREE.js 已加载
-    if (typeof THREE !== 'undefined') {
-        console.log('THREE.js 已加载');
-        createElectron();
-    } else {
-        console.error('THREE.js 未加载，尝试延迟加载电子');
-        // 尝试延迟加载
-        setTimeout(() => {
-            if (typeof THREE !== 'undefined') {
-                createElectron();
-            } else {
-                console.error('无法加载 THREE.js');
-            }
-        }, 1000);
-    }
+    enhanceElectron();
 }); 
