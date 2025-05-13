@@ -376,30 +376,110 @@ function createStars() {
     }
 }
 
-// 添加电子旋转的额外轨道
-function enhanceElectron() {
-    const electron = document.querySelector('.electron');
+// 创建3D电子动画
+function createElectron() {
+    // 获取容器
+    const container = document.getElementById('electron-container');
     
-    // 添加两个额外的轨道，角度不同
-    for (let i = 1; i <= 2; i++) {
-        const orbit = document.createElement('div');
-        orbit.className = 'electron-orbit';
-        orbit.style.transform = `rotate(${60 * i}deg)`;
-        orbit.style.width = `${100 + i * 20}%`;
-        orbit.style.height = `${100 + i * 20}%`;
-        orbit.style.animationDuration = `${8 + i * 2}s`;
-        orbit.style.animationDirection = i % 2 ? 'normal' : 'reverse';
+    // 创建场景
+    const scene = new THREE.Scene();
+    
+    // 创建相机
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.z = 5;
+    
+    // 创建渲染器
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setClearColor(0x000000, 0); // 透明背景
+    container.appendChild(renderer.domElement);
+    
+    // 添加光源
+    const ambientLight = new THREE.AmbientLight(0x404040, 1);
+    scene.add(ambientLight);
+    
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight1.position.set(5, 3, 5);
+    scene.add(directionalLight1);
+    
+    const directionalLight2 = new THREE.DirectionalLight(0x00ccff, 0.5);
+    directionalLight2.position.set(-5, -3, -5);
+    scene.add(directionalLight2);
+    
+    // 创建电子球体
+    const geometry = new THREE.SphereGeometry(1.5, 32, 32);
+    
+    // 创建材质 - 使用渐变和光泽效果
+    const material = new THREE.MeshPhongMaterial({
+        color: 0x00ccff,
+        emissive: 0x003366,
+        specular: 0xffffff,
+        shininess: 100,
+        transparent: true,
+        opacity: 0.9
+    });
+    
+    const electron = new THREE.Mesh(geometry, material);
+    scene.add(electron);
+    
+    // 创建自旋箭头
+    const arrowLength = 2.5;
+    const arrowDirection = new THREE.Vector3(0, 1, 0);
+    arrowDirection.normalize();
+    
+    const arrowHelper = new THREE.ArrowHelper(
+        arrowDirection,
+        new THREE.Vector3(0, 0, 0),
+        arrowLength,
+        0xff6b6b,
+        0.5,
+        0.3
+    );
+    scene.add(arrowHelper);
+    
+    // 创建轨道线
+    const orbitGeometry = new THREE.TorusGeometry(3, 0.05, 16, 100);
+    const orbitMaterial = new THREE.MeshBasicMaterial({ 
+        color: 0x00ccff,
+        transparent: true,
+        opacity: 0.3
+    });
+    const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
+    orbit.rotation.x = Math.PI / 2;
+    scene.add(orbit);
+    
+    // 添加窗口大小调整事件
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+    
+    // 动画循环
+    function animate() {
+        requestAnimationFrame(animate);
         
-        const dot = document.createElement('div');
-        dot.className = 'electron-dot';
+        // 旋转电子
+        electron.rotation.y += 0.01;
+        electron.rotation.x += 0.005;
         
-        orbit.appendChild(dot);
-        electron.appendChild(orbit);
+        // 旋转箭头 - 保持与电子同步
+        arrowHelper.rotation.y = electron.rotation.y;
+        arrowHelper.rotation.x = electron.rotation.x;
+        
+        // 轻微移动相机以增加动态效果
+        camera.position.x = Math.sin(Date.now() * 0.001) * 0.5;
+        camera.position.y = Math.cos(Date.now() * 0.001) * 0.5;
+        camera.lookAt(scene.position);
+        
+        renderer.render(scene, camera);
     }
+    
+    animate();
 }
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     createStars();
-    enhanceElectron();
+    createElectron();
 }); 
